@@ -8,7 +8,6 @@
   color: white;
   position: relative;
 }
-
 .home-spider-left {
   position: fixed;
   left: -50vw;
@@ -18,11 +17,24 @@
   z-index: 0; /* 가장 뒤 */
 }
 
+@keyframes spiderFadeIn {
+  0% {
+    opacity: 0;
+    filter: blur(10px);
+  }
+
+  100% {
+    opacity: 0.5;
+    filter: blur(0);
+  }
+}
+
 .home-spider-left img {
   width: 80vw;
   max-width: 1200px;
   opacity: 0.5;
   mix-blend-mode: screen;
+  animation: spiderFadeIn 1.2s ease-out forwards;
 }
 
 .home-spider-right {
@@ -41,6 +53,7 @@
   mix-blend-mode: screen;
 
   transform: scaleX(-1); /* 좌우 반전 */
+  animation: spiderFadeIn 1.2s ease-out forwards;
 }
 
 .home-container::before {
