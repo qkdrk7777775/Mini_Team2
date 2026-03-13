@@ -41,16 +41,16 @@ def get_institution_info(institution:str):
     return convert_decimal(rows)
 
 # 2페이지 1번째 슬롯 /평균 임금 비교
-def get_avg_salary(institution:str):
+def get_avg_salary(institution: str):
     query = """
     SELECT 
-        avg_salary AS `직원 평균 보수`,
-        (SELECT AVG(avg_salary) FROM institution_table) AS `전체기관 직원 평균 보수`
-    FROM institution_table
-    WHERE institution = :institution
+        직원평균보수,
+        (SELECT AVG(직원평균보수) FROM alio_master_table) AS `전체기관 직원 평균 보수`
+    FROM alio_master_table
+    WHERE `기관명` = :institution
     """
     with engine.connect() as con:
-        res = con.execute(text(query),{"institution": institution})
+        res = con.execute(text(query), {"institution": institution})
         rows = res.fetchall()
     return convert_decimal(rows)
 
@@ -79,20 +79,20 @@ def get_hiring(institution:str):
     return convert_decimal(rows)
 
 # 2페이지 3번째 슬롯 /유연근무 유형
-def get_ratio(institution:str):
+def get_ratio(institution: str):
     query = """
     SELECT 
         flex_time_ratio AS `시간유연근무 비율`,
         remote_ratio AS `원격근무 비율`,
         compress_ratio AS `압축근무 비율`,
-        (SELECT AVG(flex_time_ratio) FROM institution_table) AS `전체기관 시간유연근무 비율`,
-        (SELECT AVG(remote_ratio) FROM institution_table) AS `전체기관 원격근무 비율`,
-        (SELECT AVG(compress_ratio) FROM institution_table) AS `전체기관 압축근무 비율`
-    FROM institution_table
+        (SELECT AVG(flex_time_ratio) FROM flexible_table) AS `전체기관 시간유연근무 비율`,
+        (SELECT AVG(remote_ratio) FROM flexible_table) AS `전체기관 원격근무 비율`,
+        (SELECT AVG(compress_ratio) FROM flexible_table) AS `전체기관 압축근무 비율`
+    FROM flexible_table
     WHERE institution = :institution
     """
     with engine.connect() as con:
-        res = con.execute(text(query),{"institution": institution})
+        res = con.execute(text(query), {"institution": institution})
         rows = res.fetchall()
     return convert_decimal(rows)
 
@@ -112,34 +112,33 @@ def get_health(institution:str):
     return convert_decimal(rows)
 
 # 2페이지 5번째 슬롯 / 위험신호 요약
-def get_risk(institution:str):
+def get_risk_summary(institution: str):
     query = """
     SELECT 
         risk_signal_summary AS `위험 신호 요약`
-        FROM institution_table
+    FROM institution_table
     WHERE institution = :institution
     """
     with engine.connect() as con:
-        res = con.execute(text(query),{"institution": institution})
+        res = con.execute(text(query), {"institution": institution})
         rows = res.fetchall()
     return convert_decimal(rows)
 
 # 2페이지 6번째 슬롯 / 기관 평균 퇴사 위험도
-# 다른 csv파일"""
 
-# def get_quik(institution:str):
-#     query = """
-#     SELECT 
-#         quarter AS `분기`,
-#         quarter_avg_quit_probability AS `분기별 퇴사위험도`
-#         FROM institution_table
-#     WHERE institution = :institution
-#     """
-#     with engine.connect() as con:
-#         res = con.execute(text(query),{"institution": institution})
-#         rows = res.fetchall()
-#     return [dict(row._mapping) for row in rows]
-
+def get_quarter_risk(institution: str):
+    query = """
+    SELECT 
+        quarter AS `분기`,
+        quarter_avg_quit_probability AS `분기별 퇴사위험도`
+    FROM risk_table
+    WHERE institution = :institution
+    ORDER BY quarter
+    """
+    with engine.connect() as con:
+        res = con.execute(text(query), {"institution": institution})
+        rows = res.fetchall()
+    return convert_decimal(rows)
 
 
 

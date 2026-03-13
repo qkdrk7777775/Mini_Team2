@@ -1,18 +1,9 @@
 from fastapi import APIRouter
-from pydantic import BaseModel
-from controllers.analysis import get_analysis_value
+from schemas.analysis import AnalysisRequest
+from controllers.analysis import analysis_controller
 
-router = APIRouter(prefix="/analysis", tags=["analysis"])
+router = APIRouter(tags=["analysis"])
 
-class AnalysisRequest(BaseModel):
-    institution: str
-    age: int
-    gender: str
-    tenure_years: int
-    performance_grade: str
-    workload_level: str
-    flexible_work: str
-
-@router.post("/")
-def get_value(data: AnalysisRequest):
-    return get_analysis_value(data.model_dump())
+@router.post("/analysis")
+def analyze(request: AnalysisRequest):
+    return analysis_controller(request)
