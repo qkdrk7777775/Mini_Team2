@@ -6,3 +6,6 @@ router = APIRouter(prefix="/dashboard", tags=["dashboard"])
 @router.get("/{institution}")
 def get_institution(institution: str):
     return get_dashboard_controller(institution)
+
+
+
