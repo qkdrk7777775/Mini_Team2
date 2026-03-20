@@ -1,0 +1,159 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --neon-green: #4ade80;
+  --bg-black: #050505;
+  --card-bg: rgba(18, 18, 18, 0.8);
+  --border-white: rgba(255, 255, 255, 0.05);
+  --text-gray: #a1a1aa;
+}
+
+/* 대시보드 최상위 컨테이너 */
+.dashboard-container {
+  font-family: "Space Grotesk", "Inter", "Pretendard", sans-serif !important;
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  background-color: var(--bg-black);
+  color: white;
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* 배경 글로우 효과 부여 */
+.dashboard-container::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background:
+    radial-gradient(
+      circle at 80% 20%,
+      rgba(74, 222, 128, 0.05) 0%,
+      transparent 40%
+    ),
+    radial-gradient(
+      circle at 20% 80%,
+      rgba(34, 197, 94, 0.03) 0%,
+      transparent 40%
+    );
+  pointer-events: none;
+  z-index: 0;
+}
+
+.dashboard-wrapper {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  padding: 40px;
+  padding-top: 100px;
+  z-index: 10;
+}
+
+.top-nav {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+  background-color: transparent;
+  color: white;
+  padding: 0 0 40px 0;
+  margin-bottom: 30px;
+  border-bottom: 1px solid var(--border-white);
+  box-shadow: none;
+  border-radius: 0;
+}
+
+.inst-name {
+  flex: none;
+  border-right: none;
+  font-weight: 900;
+  font-size: 42px;
+  letter-spacing: -0.04em;
+  color: white;
+  text-transform: uppercase;
+}
+
+.inst-meta {
+  flex: none;
+  padding-left: 0;
+  font-size: 14px;
+  color: var(--text-gray);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.inst-meta p {
+  font-weight: 700;
+  color: var(--neon-green);
+  background: rgba(74, 222, 128, 0.1);
+  padding: 4px 12px;
+  border-radius: 99px;
+  margin: 0;
+}
+
+.info-group {
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr; /* 25% : 50% : 25% */
+  gap: 30px;
+  padding: 0;
+  width: 100%;
+  align-items: start;
+}
+
+.grid-column {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+/* 개별 카드 컴포넌트에 공통 적용될 스타일 (Mains.js 내부에서 호출되는 각 Card 컴포넌트의 루트 클래스 대응) */
+.SalaryCard,
+.RecruitmentGaugeCard,
+.WorkFlexibilityCard,
+.HealthDiagnosisCard,
+.RiskSignalCard,
+.HRBalanceChartCard,
+.card-common {
+  background: var(--card-bg) !important;
+  border: 1px solid var(--border-white) !important;
+  border-radius: 32px !important;
+  padding: 32px !important;
+  backdrop-filter: blur(20px) !important;
+  transition:
+    transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+    border-color 0.3s !important;
+}
+
+.card-common:hover,
+[class*="Card"]:hover {
+  transform: translateY(-5px);
+  border-color: rgba(74, 222, 128, 0.2) !important;
+}
+@media (max-width: 1600px) {
+  .inst-name {
+    font-size: 32px;
+  }
+  .info-group {
+    gap: 20px;
+  }
+}
+
+@media (max-width: 1200px) {
+  .info-group {
+    grid-template-columns: 1fr;
+  }
+  .dashboard-wrapper {
+    padding: 20px;
+    padding-top: 80px;
+  }
+}
