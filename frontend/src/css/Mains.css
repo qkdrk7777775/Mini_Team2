@@ -10,20 +10,6 @@
   --text-gray: #a1a1aa;
 }
 
-/* 대시보드 최상위 컨테이너 */
-.dashboard-container {
-  font-family: "Space Grotesk", "Inter", "Pretendard", sans-serif !important;
-  width: 100%;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  flex: 1;
-  background-color: var(--bg-black);
-  color: white;
-  position: relative;
-  overflow-x: hidden;
-}
-
 /* 배경 글로우 효과 부여 */
 .dashboard-container::before {
   content: "";
@@ -47,25 +33,41 @@
   z-index: 0;
 }
 
-.dashboard-wrapper {
+/* 대시보드 최상위 컨테이너 */
+.dashboard-container {
+  font-family: "Space Grotesk", "Inter", "Pretendard", sans-serif !important;
   width: 100%;
+  height: 100vh;
+  /* min-height: 100vh; */
+  display: flex;
+  flex-direction: column;
+  background-color: var(--bg-black);
+  color: white;
+  position: relative;
+  overflow-x: hidden;
+}
+
+.dashboard-wrapper {
+  flex: 1;
   display: flex;
   flex-direction: column;
   align-items: stretch;
   padding: 40px;
-  padding-top: 100px;
+  padding-top: 80px;
   z-index: 10;
+  min-height: 0;
 }
 
 .top-nav {
   display: flex;
   flex-direction: column;
+  flex-shrink: 0;
   align-items: flex-start;
   gap: 12px;
   background-color: transparent;
   color: white;
   padding: 0 0 40px 0;
-  margin-bottom: 30px;
+  margin-bottom: 0;
   border-bottom: 1px solid var(--border-white);
   box-shadow: none;
   border-radius: 0;
@@ -103,7 +105,8 @@
 
 .info-group {
   display: grid;
-  grid-template-columns: 1fr 2fr 1fr; /* 25% : 50% : 25% */
+  flex: 1;
+  grid-template-columns: 1fr 2fr 1fr;
   gap: 30px;
   padding: 0;
   width: 100%;
@@ -111,8 +114,10 @@
 }
 
 .grid-column {
+  flex: 1;
   display: flex;
   flex-direction: column;
+  height: 100%;
   gap: 30px;
 }
 
@@ -132,6 +137,24 @@
   transition:
     transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
     border-color 0.3s !important;
+}
+
+/* 오각형 차트 카드만 툴팁이 밖으로 나갈 수 있게 허용 */
+.balance-card {
+  overflow: visible !important;
+}
+
+/* 오각형 차트 카드 내부의 모든 컨텐츠 영역도 밖으로 나가는 것(툴팁)을 허용 */
+.balance-card div,
+.balance-card svg {
+  overflow: visible !important;
+}
+
+/* HR Balance 안내창(툴팁) 설정 */
+.logic-tooltip-bubble {
+  position: fixed !important; /* 브라우저 화면 기준 */
+  z-index: 99999999 !important; /* 그 어떤 요소보다 위 */
+  pointer-events: none; /* 툴팁 때문에 마우스 이벤트가 끊기지 않게 함 */
 }
 
 .card-common:hover,

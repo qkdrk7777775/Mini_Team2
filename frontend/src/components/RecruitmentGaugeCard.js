@@ -1,8 +1,35 @@
+import { useMemo } from "react";
 import GaugeChart from "react-gauge-chart";
 import "../css/RecruitmentGaugeCard.css";
 
-const RecruitmentGaugeCard = ({ score, gradeInfo }) => {
-  const gaugeColor = ["#ff8585", "#7dc24f", "#76b7f3"];
+const GAUGE_CONFIG = {
+  // 게이지 스타일 설정
+  GRADES: {
+    A: { label: "A", gColor: "#76b7f3", tColor: "#0084ff", bgColor: "#97cdff" },
+    B: { label: "B", gColor: "#7dc24f", tColor: "#60c020", bgColor: "#c1ff98" },
+    C: { label: "C", gColor: "#ff8585", tColor: "#ff3e3e", bgColor: "#ffb3b3" },
+  },
+};
+
+const RecruitmentGaugeCard = ({ score }) => {
+  const numericScore = Number(score);
+
+  // 등급 비율 (0~100점 기준이므로 33.3 / 66.7 고정)
+  const gradeInfo = useMemo(() => {
+    const { GRADES } = GAUGE_CONFIG;
+    if (numericScore >= 66.7) return GRADES.A;
+    if (numericScore >= 33.3) return GRADES.B;
+    return GRADES.C;
+  }, [numericScore]);
+
+  // 2. 게이지 비율
+  const percent = numericScore / 100;
+
+  const gaugeColors = [
+    GAUGE_CONFIG.GRADES.C.gColor,
+    GAUGE_CONFIG.GRADES.B.gColor,
+    GAUGE_CONFIG.GRADES.A.gColor,
+  ];
 
   return (
     <div className="recruitment-group-container">
@@ -17,11 +44,11 @@ const RecruitmentGaugeCard = ({ score, gradeInfo }) => {
           <div className="gauge-relative-box">
             <GaugeChart
               id="recruitment-gauge"
-              key={`gauge-${score}`}
+              key={`gauge-${numericScore}`}
               nrOfLevels={3}
               arcsLength={[0.333, 0.334, 0.333]}
-              colors={gaugeColor}
-              percent={score / 100}
+              colors={gaugeColors}
+              percent={percent}
               arcPadding={0.02}
               cornerRadius={0}
               needleColor="#495057"
@@ -35,13 +62,15 @@ const RecruitmentGaugeCard = ({ score, gradeInfo }) => {
             <span className="gauge-step-label label-a">A</span>
 
             <div className="gauge-score-overlay">
-              <span className="score-num">{score}</span>
-              <span className="score-unit">점</span>
+              <div className="score-wrapper">
+                <span className="score-num">{numericScore.toFixed(1)}</span>
+                <span className="score-unit">점</span>
+              </div>
               <div
                 className="grade-badge-custom"
                 style={{
                   backgroundColor: gradeInfo.bgColor,
-                  color: gradeInfo.color,
+                  color: gradeInfo.tColor,
                 }}
               >
                 {gradeInfo.label} 등급
@@ -57,7 +86,7 @@ const RecruitmentGaugeCard = ({ score, gradeInfo }) => {
           현재 기관의 채용 경쟁력은{" "}
           <strong
             className="gauge-result-highlight"
-            style={{ color: gradeInfo.color }}
+            style={{ color: gradeInfo.tColor }}
           >
             {gradeInfo.label}등급
           </strong>{" "}

@@ -1,41 +1,11 @@
-.attrition-group-container {
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
-  width: 100%;
-}
-
-.attrition-info-card {
-  padding: 24px;
-  background-color: rgba(18, 18, 18, 0.8) !important;
-  border: 1px solid rgba(255, 255, 255, 0.05);
-  border-radius: 24px;
-  backdrop-filter: blur(20px);
-  text-align: left;
-  transition: all 0.3s ease;
-}
-
-.attrition-info-card:hover {
-  border-color: rgba(74, 222, 128, 0.2);
-  transform: translateY(-4px);
-}
-
-.attrition-info-card .info-label {
+.info-label {
   font-family: "Space Grotesk", sans-serif;
-  font-size: 11px;
+  font-size: 12px;
   text-transform: uppercase;
   letter-spacing: 0.1em;
   color: #a1a1aa;
   margin-bottom: 8px;
   font-weight: 600;
-}
-
-.attrition-info-card .info-main {
-  font-family: "Inter", sans-serif;
-  font-size: 15px;
-  color: #ffffff;
-  margin: 0;
-  line-height: 1.6;
 }
 
 .attrition-main-card {
@@ -46,6 +16,12 @@
   backdrop-filter: blur(20px);
   padding: 32px;
   transition: all 0.3s ease;
+  height: 650px;
+}
+
+.attrition-main-card:hover {
+  border-color: rgba(74, 222, 128, 0.2);
+  transform: translateY(-4px);
 }
 
 .attrition-main-card.border-green {
@@ -78,8 +54,8 @@
 }
 
 .info-description {
-  font-size: 13px;
-  color: #a1a1aa;
+  font-size: 16px;
+  color: #4ade80b3;
   margin-top: 8px;
   margin-bottom: 24px;
   line-height: 1.5;
@@ -94,11 +70,11 @@
 }
 
 .info-main {
-  font-size: 20px;
+  font-size: 25px;
   color: #ffffff;
-  border-top: 1px dashed rgba(255, 255, 255, 0.1);
+  border-top: 1px dashed rgba(255, 255, 255, 0.25);
   text-align: center;
-  padding-top: 16px;
+  padding-top: 20px;
   font-weight: 500;
 }
 
@@ -137,28 +113,39 @@
 .legend-item {
   display: flex;
   align-items: center;
-  font-size: 11px;
-  color: #a1a1aa;
+  font-size: 13px;
+  color: #e5e7eb;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.05em;
+  transition: all 0.2s ease; /* 부드러운 변화 */
+}
+
+.legend-item:hover {
+  opacity: 0.7;
+  transform: translateY(-1px);
 }
 
 .legend-dot {
-  width: 8px;
-  height: 8px;
+  width: 9px;
+  height: 9px;
   border-radius: 50%;
   margin-right: 8px;
+  transition: all 0.3s ease;
 }
 
 .dot-total {
-  background-color: rgba(255, 255, 255, 0.2);
-  box-shadow: 0 0 8px rgba(255, 255, 255, 0.1);
+  background-color: #f25c5c !important;
+  box-shadow:
+    0 0 12px rgba(242, 92, 92, 0.8),
+    0 0 4px rgba(242, 92, 92, 0.4);
 }
 
 .dot-inst {
   background-color: #4ade80;
-  box-shadow: 0 0 10px rgba(74, 222, 128, 0.5);
+  box-shadow:
+    0 0 12px rgba(74, 222, 128, 0.8),
+    0 0 4px rgba(74, 222, 128, 0.4);
 }
 
 .attrition-chart-wrapper {

@@ -54,9 +54,10 @@ const AttritionRiskCard = ({ data }) => {
         <div className="card-header-sub">
           <p className="info-label">기관 평균 퇴사 위험도 안내</p>
           <p className="info-description">
-            본 지표는 구성원 개별 퇴사 위험도(ML 예측값)의 평균이며,
+            본 지표는 구성원 개별 퇴사 위험도 [AI 머신러닝(ML) 예측값] 의
+            평균이며,
             <br />
-            나이·근속·성과·업무강도·유연근무 데이터를 기반으로 계산되었습니다.
+            나이·근속·업무강도·유연근무등 데이터를 기반으로 계산되었습니다.
           </p>
         </div>
       </div>
@@ -83,7 +84,7 @@ const AttritionRiskCard = ({ data }) => {
         </div>
 
         <div className="attrition-chart-wrapper">
-          <ResponsiveContainer width="100%" height={180}>
+          <ResponsiveContainer width="100%" height={300}>
             <LineChart
               data={chartData}
               margin={{ top: 5, right: 50, left: 40, bottom: 0 }}
@@ -93,33 +94,28 @@ const AttritionRiskCard = ({ data }) => {
                 vertical={false}
                 stroke="#618b18"
               />
-              <XAxis
-                dataKey="qShort"
-                axisLine={false}
-                tickLine={false}
-                tick={{
-                  fontSize: 12,
-                  fill: "#000000",
-                  fontFamily: "Freesentation",
-                }}
-              />
+              <XAxis dataKey="qShort" axisLine={false} tickLine={false} />
               <YAxis
                 axisLine={false}
                 tickLine={false}
-                tick={{
-                  fontSize: 11,
-                  fill: "#000000",
-                  fontFamily: "Freesentation",
-                }}
                 tickFormatter={(val) => `${val}%`}
                 domain={[15, 60]} // Y 축 0% ~ 100% 범위
               />
               <Tooltip
                 contentStyle={{
+                  backgroundColor: "rgba(18, 18, 18, 0.9)",
                   fontFamily: "Freesentation",
-                  borderRadius: "8px",
-                  border: "1px solid #b6db76",
+                  borderRadius: "12px",
+                  border: "1px solid #74c0414f",
+                  padding: "10px",
                 }}
+                // 1분기, 2분기 등 라벨 글자색
+                labelStyle={{
+                  color: "#ffffff",
+                  marginBottom: "4px",
+                  fontWeight: "bold",
+                }}
+                itemStyle={{ color: "#88f83d", fontSize: "15px" }}
                 labelFormatter={(label, payload) => {
                   return payload && payload[0]
                     ? payload[0].payload.qFull
@@ -132,13 +128,20 @@ const AttritionRiskCard = ({ data }) => {
                 y={TOTAL_AVERAGE}
                 stroke="#f25c5c"
                 strokeWidth={2}
-                label={{
-                  value: "전체평균(37%)",
-                  position: "left",
-                  fill: "#f25c5c",
-                  fontSize: 13,
-                  fontWeight: 700,
-                }}
+                label={(props) => (
+                  <text
+                    x={props.viewBox.x}
+                    y={props.viewBox.y}
+                    fill="#f25c5c"
+                    dy={5} // 위아래 위치
+                    dx={-93} // 좌우 위치
+                    fontSize={15}
+                    fontWeight={800}
+                    fontFamily="Freesentation"
+                  >
+                    전체평균(37%)
+                  </text>
+                )}
               />
               {/* 기관 데이터 라인 */}
               <Line

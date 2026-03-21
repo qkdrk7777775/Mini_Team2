@@ -1,16 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import {
-  LogIn,
-  ChevronRight,
-  Layout,
-  Users,
-  TrendingUp,
-  PieChart,
-  BarChart3,
-  ShieldCheck,
-} from "lucide-react";
+import { ChevronRight } from "lucide-react";
 import "../css/Home.css";
 
 const Home = () => {
@@ -20,7 +11,7 @@ const Home = () => {
   const modules = [
     {
       id: "01",
-      title: "Workforce Retention",
+      title: "Main Home, ID, SignUp Page",
       image:
         "https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&q=80&w=800",
       description:
@@ -28,7 +19,7 @@ const Home = () => {
     },
     {
       id: "02",
-      title: "Employee Sentiment",
+      title: "Organizational HR Overview",
       image:
         "https://images.unsplash.com/photo-1553877522-43269d4ea984?auto=format&fit=crop&q=80&w=800",
       description:
@@ -36,15 +27,15 @@ const Home = () => {
     },
     {
       id: "03",
-      title: "Growth Velocity",
+      title: "Employee Risk Prediction",
       image:
         "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=800",
       description:
         "Benchmark your talent acquisition speed against industry leaders.",
     },
     {
-      id: "06",
-      title: "Predictive Churn",
+      id: "04",
+      title: "API(GET/POST), DB",
       image:
         "https://images.unsplash.com/photo-1551288049-bbbda536339a?auto=format&fit=crop&q=80&w=800",
       description:
@@ -57,7 +48,7 @@ const Home = () => {
       setActiveIndex((prev) => (prev + 1) % modules.length);
     }, 5000);
     return () => clearInterval(timer);
-  }, []);
+  }, [modules.length]);
 
   return (
     <div className="split-container home-theme-wrapper">
@@ -80,8 +71,8 @@ const Home = () => {
               ANALYTICS
             </h1>
             <p className="hero-description">
-              High-fidelity workforce intelligence for the <br />
-              next generation of organizational management.
+              기존 시스템은 ‘보여주는 것’에 그치지만, <br />
+              우리는 ‘판단을 도와주는 시스템’을 만들었습니다.
             </p>
             <button
               className="login-action-btn"

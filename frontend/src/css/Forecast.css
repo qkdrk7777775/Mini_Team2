@@ -47,8 +47,8 @@ strong {
 .forecast-page-main {
   width: 100%;
   max-width: none;
-  margin: 32px 0 0;
-  padding: 24px 24px 40px;
+  margin: 0;
+  padding: 32px 24px 40px;
   display: flex;
   gap: 22px;
   align-items: stretch;
@@ -89,6 +89,11 @@ strong {
   grid-row: 1;
 }
 
+.panel-input:hover {
+  transform: translateY(-4px);
+  border-color: rgba(74, 222, 128, 0.2) !important;
+}
+
 /* 2구역: 게이지 영역 */
 .panel-risk {
   grid-column: 2;
@@ -100,6 +105,11 @@ strong {
 .panel-result {
   grid-column: 1 / 3;
   grid-row: 2;
+}
+
+.panel-result:hover {
+  transform: translateY(-4px);
+  border-color: rgba(74, 222, 128, 0.2) !important;
 }
 
 /* 입력패널 카드 느낌 제거 */
@@ -460,11 +470,16 @@ strong {
   flex-shrink: 0;
   align-self: stretch;
   height: auto;
-  background: rgba(18, 18, 18, 0.95);
+  background: rgba(18, 18, 18, 0.9);
   border: 1px solid var(--border-neon);
   border-radius: 24px;
   padding: 18px 18px 20px;
   box-shadow: 0 0 30px rgba(0, 0, 0, 0.4);
+}
+
+.rightPanel:hover {
+  transform: translateY(-4px);
+  border-color: rgba(74, 222, 128, 0.2) !important;
 }
 
 .guide-header {
@@ -478,7 +493,7 @@ strong {
 }
 
 .guide-title {
-  margin: 0 0 14px;
+  margin: 50px 0 14px;
   font-family: "Pretendard", sans-serif !important;
   font-size: 23px;
   font-weight: 800;

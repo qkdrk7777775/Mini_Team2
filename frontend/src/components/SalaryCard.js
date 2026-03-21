@@ -45,7 +45,7 @@ const SalaryCard = ({ data }) => {
                 <CartesianGrid
                   strokeDasharray="3 3"
                   vertical={false}
-                  stroke="#739636"
+                  stroke="#000000"
                 />
                 <XAxis
                   dataKey="name"
@@ -70,9 +70,19 @@ const SalaryCard = ({ data }) => {
                   tickFormatter={(v) => Math.round(v).toLocaleString()}
                 />
                 <Tooltip
-                  contentStyle={{ fontFamily: "Freesentation" }}
-                  formatter={(value) => Math.round(value).toLocaleString()}
-                  cursor={{ fill: "transparent" }}
+                  contentStyle={{
+                    backgroundColor: "rgba(30, 30, 30, 0.9)",
+                    borderRadius: "12px",
+                    border: "1px solid rgba(255, 255, 255, 0.1)",
+                    fontFamily: "Freesentation",
+                    color: "#ffffff",
+                  }}
+                  itemStyle={{ color: "#ffffff" }}
+                  formatter={(value) => [
+                    `${Math.round(value).toLocaleString()} 천원`,
+                    "평균 임금",
+                  ]}
+                  cursor={{ fill: "rgba(255, 255, 255, 0.05)" }}
                 />
                 <Bar dataKey="amount" barSize={45} radius={[4, 4, 0, 0]}>
                   {data.map((entry, index) => (

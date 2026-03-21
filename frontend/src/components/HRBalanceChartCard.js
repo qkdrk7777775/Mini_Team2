@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
+import { createPortal } from "react-dom";
 import {
   Radar,
   RadarChart,
@@ -29,6 +30,11 @@ function HRBalanceCard({
   const [hoveredDesc, setHoveredDesc] = useState("");
   const [tooltipPos, setTooltipPos] = useState({ x: 0, y: 0 });
 
+  const leaveTimerRef = useRef(null);
+  const clearTooltip = () => {
+    if (leaveTimerRef.current) clearTimeout(leaveTimerRef.current);
+    setHoveredDesc("");
+  };
   const CustomTick = ({ x, y, payload, index }) => {
     const [eng, kor] = payload.value.split("|");
     const anchor =
@@ -40,34 +46,49 @@ function HRBalanceCard({
     const verticalOffset = verticalOffsets[index];
 
     // 마우스 올렸을 때 함수
-    const handleMouseEnter = (e) => {
-      setHoveredDesc(descriptions[kor]);
-      setTooltipPos({ x: e.pageX, y: e.pageY });
+    const handleMouseMove = (e) => {
+      if (leaveTimerRef.current) clearTimeout(leaveTimerRef.current);
+
+      const korName = kor.trim();
+      if (descriptions[korName]) {
+        setHoveredDesc(descriptions[korName]);
+        setTooltipPos({ x: e.clientX, y: e.clientY });
+      }
+    };
+
+    const handleMouseLeave = () => {
+      leaveTimerRef.current = setTimeout(() => {
+        setHoveredDesc("");
+      }, 50);
     };
 
     return (
-      <text
-        x={x}
-        y={y}
-        textAnchor={anchor}
-        fontFamily="Pretendard"
-        style={{ cursor: "help" }}
-        onMouseEnter={handleMouseEnter}
-        onMouseLeave={() => setHoveredDesc("")}
+      <g
+        onMouseMove={handleMouseMove}
+        onMouseLeave={handleMouseLeave}
+        style={{ cursor: "help", pointerEvents: "all" }}
       >
-        <tspan
-          x={x}
-          dy={verticalOffset}
-          fontSize="15"
-          fontWeight="700"
-          fill="#333"
-        >
-          {eng}
-        </tspan>
-        <tspan x={x} dy="1.2em" fontSize="15" fontWeight="500" fill="#666">
-          ({kor})
-        </tspan>
-      </text>
+        <text x={x} y={y} textAnchor={anchor} fontFamily="Freesentation">
+          <tspan
+            x={x}
+            dy={verticalOffset}
+            fontSize="20"
+            fontWeight="700"
+            fill="#ffffffb3"
+          >
+            {eng}
+          </tspan>
+          <tspan
+            x={x}
+            dy="1.2em"
+            fontSize="18"
+            fontWeight="500"
+            fill="#4ade80b3"
+          >
+            ({kor})
+          </tspan>
+        </text>
+      </g>
     );
   };
 
@@ -113,11 +134,10 @@ function HRBalanceCard({
   ];
 
   return (
-    <div className="card-box card-top balance-card">
+    <div className="card-box card-top balance-card" onMouseLeave={clearTooltip}>
       <div className="card-header-custom">
         <h3 className="eng-title">HR Balance </h3>
-        <p className="kor-title">기관 역량 밸런스 </p>
-        <h4 className="kor-sub">데이터 기반 종합 역량 진단</h4>
+        <p className="kor-sub">기관 역량 밸런스 </p>
         <p className="card-content-title">*점수산출 근거</p>
         <p className="card-content">
           공공데이터포털,알리오(ALIO)등 공공기관 공개시스템의 공식 데이터를
@@ -126,13 +146,19 @@ function HRBalanceCard({
           산출
         </p>
       </div>
-      <div className="card-content balance-content">
+      <div className="card-content balance-content" onMouseLeave={clearTooltip}>
         <ResponsiveContainer
           width="100%"
           aspect={1}
-          style={{ maxWidth: "450px", margin: "0 auto" }}
+          style={{ maxWidth: "530px", margin: "0 auto" }}
         >
-          <RadarChart cx="52%" cy="45%" outerRadius="65%" data={data}>
+          <RadarChart
+            cx="52%"
+            cy="43%"
+            outerRadius="65%"
+            data={data}
+            onMouseLeave={clearTooltip}
+          >
             <PolarGrid stroke="#adb5bd" />
             <PolarAngleAxis dataKey="subject" tick={<CustomTick />} />
 
@@ -142,46 +168,51 @@ function HRBalanceCard({
               separator=": "
               labelStyle={{
                 fontWeight: "800",
-                color: "#000000",
-                fontSize: "15px",
+                color: "#ffffff",
+                fontSize: "20px",
               }}
               contentStyle={{
-                borderRadius: "8px",
-                border: "1px solid #b6db76",
-                fontSize: "15px",
+                backgroundColor: "rgba(18, 18, 18, 0.9)",
+                fontFamily: "Freesentation",
+                borderRadius: "20px",
+                border: "1px solid #74c0414f",
+                padding: "10px",
               }}
-              itemStyle={{ color: "#295c09", fontWeight: "800" }}
+              itemStyle={{ color: "#69c72f", fontWeight: "800" }}
             />
 
             <Radar
               name="Index"
               dataKey="A"
-              stroke="#6fa74b"
+              stroke="#696969"
               fill="#6fa74b"
               fillOpacity={0.6}
             />
           </RadarChart>
         </ResponsiveContainer>
-        {hoveredDesc && (
-          <div
-            className="logic-tooltip-bubble"
-            style={{
-              position: "fixed",
-              top: tooltipPos.y - 60,
-              left: tooltipPos.x + 15,
-              zIndex: 1000,
-              backgroundColor: "rgba(52, 58, 64, 0.95)",
-              color: "#fff",
-              padding: "10px 15px",
-              borderRadius: "8px",
-              fontSize: "15px",
-              pointerEvents: "none",
-              boxShadow: "0 4px 12px rgba(0,0,0,0.2)",
-            }}
-          >
-            {hoveredDesc}
-          </div>
-        )}
+        {hoveredDesc &&
+          createPortal(
+            <div
+              className="logic-tooltip-bubble"
+              style={{
+                position: "fixed",
+                top: tooltipPos.y,
+                left: tooltipPos.x,
+                transform: "translate(-50%, -100%)",
+                zIndex: 99999,
+                backgroundColor: "rgba(18, 18, 18, 0.9)",
+                color: "#fff",
+                padding: "10px 15px",
+                borderRadius: "8px",
+                fontSize: "20px",
+                pointerEvents: "none",
+                boxShadow: "0 4px 12px #74c0414f",
+              }}
+            >
+              {hoveredDesc}
+            </div>,
+            document.body,
+          )}
 
         <div className="balance-info-text">
           종합 진단 점수:{" "}

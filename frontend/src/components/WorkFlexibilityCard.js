@@ -34,12 +34,14 @@ const WorkFlexibilityCard = ({ totalData, instData, colors }) => {
                     ))}
                   </Pie>
                   <Tooltip
-                    formatter={(value, name) => [percentFormatter(value), name]}
                     contentStyle={{
+                      backgroundColor: "rgba(18, 18, 18, 0.9)",
                       fontFamily: "Freesentation",
-                      borderRadius: "8px",
+                      borderRadius: "12px",
+                      border: "1px solid #74c0414f",
+                      padding: "10px",
                     }}
-                    /* 텍스트 스타일 설정 */
+                    formatter={(value, name) => [percentFormatter(value), name]}
                     itemStyle={{
                       fontWeight: "bold",
                       fontSize: "17px",
@@ -73,6 +75,13 @@ const WorkFlexibilityCard = ({ totalData, instData, colors }) => {
                     ))}
                   </Pie>
                   <Tooltip
+                    contentStyle={{
+                      backgroundColor: "rgba(18, 18, 18, 0.9)",
+                      fontFamily: "Freesentation",
+                      borderRadius: "12px",
+                      border: "1px solid #74c0414f",
+                      padding: "10px",
+                    }}
                     formatter={(value) => percentFormatter(value)}
                     itemStyle={{
                       fontWeight: "bold",
@@ -81,7 +90,7 @@ const WorkFlexibilityCard = ({ totalData, instData, colors }) => {
                   />
                 </PieChart>
               </ResponsiveContainer>
-              {/* ⭐ 도넛 중앙 텍스트 */}
+              {/* 도넛 중앙 텍스트 */}
               <div className="pie-center-label">Institutional</div>
             </div>
             <p className="sub-chart-name">기관</p>

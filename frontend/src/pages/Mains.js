@@ -16,7 +16,6 @@ import AttritionRiskCard from "../components/AttritionRiskCard";
 import HRBalanceChartCard from "../components/HRBalanceChartCard";
 
 function Mains() {
-  // ##### DB 연결시 아래 주석 처리된 부분으로 사용 #####
   const [instInfo, setInstInfo] = useState({
     name: "로딩 중...",
     type: "",
@@ -25,7 +24,7 @@ function Mains() {
     size: "",
   });
   const [salaryData, setSalaryData] = useState([]);
-  const [score, setScore] = useState(0);
+  const [displayScore, setDisplayScore] = useState(0);
   const [flexDataTotal, setFlexDataTotal] = useState([]);
   const [flexDataInst, setFlexDataInst] = useState([]);
   const [healthData, setHealthData] = useState({
@@ -37,7 +36,6 @@ function Mains() {
   const [attritionRisk, setAttritionRisk] = useState([]);
 
   const FLEX_COLORS = ["#816fd3", "#6fa74b", "#ff864d"]; // 유연근무 차트 색상
-  const gaugeColor = ["#ff0000", "#048300", "#001aff"]; // 채용경쟁진단 결과 등급 글자 색상(순서:C,B,A)
 
   useEffect(() => {
     const loadData = async () => {
@@ -68,7 +66,11 @@ function Mains() {
 
         // 2. 채용경쟁력 진단
         if (res["채용경쟁력"] && res["채용경쟁력"].length > 0) {
-          setScore(res["채용경쟁력"][0]["채용 경쟁력 점수"]);
+          const raw = res["채용경쟁력"][0]["채용 경쟁력 점수"];
+
+          // 15~73 범위를 0~100점으로 환산합니다.
+          const display = Number((((raw - 15) / (73 - 15)) * 100).toFixed(1));
+          setDisplayScore(display);
         }
 
         // 3. 퇴사 위험도
@@ -126,16 +128,6 @@ function Mains() {
     loadData();
   }, []);
 
-  // 등급 정보 계산 함수
-  const getGradeInfo = (val) => {
-    if (val >= 66.6)
-      return { label: "A", color: "#001aff", bgColor: "#7d8aff" };
-    if (val >= 33.3)
-      return { label: "B", color: "#048300", bgColor: "#88ff84" };
-    return { label: "C", color: "#ff0000", bgColor: "#ff7c7c" };
-  };
-  const gradeInfo = getGradeInfo(score);
-
   return (
     <div className="dashboard-container">
       <Header />
@@ -164,11 +156,7 @@ function Mains() {
                 <section className="info-group">
                   <div className="grid-column">
                     {salaryData.length > 0 && <SalaryCard data={salaryData} />}
-                    <RecruitmentGaugeCard
-                      score={score}
-                      gradeInfo={gradeInfo}
-                      gaugeColor={gaugeColor}
-                    />
+                    <RecruitmentGaugeCard score={displayScore} />
                   </div>
 
                   {/* 중앙 컬럼 */}
@@ -189,7 +177,7 @@ function Mains() {
                     <RiskSignalCard
                       signals={riskSignals}
                       rawScores={{
-                        recruit: score, // 채용 점수 (0~100)
+                        recruit: displayScore, // 채용 점수 (0~100)
                         health: healthData.score, // 건강도 점수 (0~100)
                         attrition:
                           attritionRisk.length > 0
@@ -203,7 +191,7 @@ function Mains() {
                     {/* 조직 밸런스 차트 */}
                     <HRBalanceChartCard
                       salaryData={salaryData}
-                      recruitmentScore={score}
+                      recruitmentScore={displayScore}
                       healthScore={healthData.score}
                       flexData={flexDataInst}
                       attritionRisk={attritionRisk}

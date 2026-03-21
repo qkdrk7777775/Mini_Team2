@@ -14,7 +14,7 @@ export default function Signup() {
 
   const institutions = [
     { id: 1, name: "코레일테크(주)" },
-    { id: 2, name: "(재)일제강제동원피해자지원재단" },
+    { id: 2, name: "한국환경공단" },
     { id: 3, name: "(주)강원랜드" },
   ];
 

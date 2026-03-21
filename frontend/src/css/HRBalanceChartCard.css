@@ -7,13 +7,13 @@
 .recharts-polar-angle-axis-tick-value {
   font-family: "Space Grotesk", "Inter", sans-serif !important;
   font-weight: 700;
-  fill: #a1a1aa !important;
+  fill: #a1a1aa;
   font-size: 11px;
 }
 
 .recharts-polar-grid-concentric-path,
 .recharts-polar-grid-angle-line {
-  stroke: rgba(255, 255, 255, 0.05) !important;
+  stroke: rgba(255, 255, 255, 0.015) !important;
 }
 
 .balance-card {
@@ -24,11 +24,12 @@
   backdrop-filter: blur(20px);
   display: flex;
   flex-direction: column;
-  /* 애니메이션 속성 추가 */
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  z-index: 10;
+  overflow: visible !important;
 }
 
-/* 호버 효과 추가 */
 .balance-card:hover {
   transform: translateY(-4px);
   border-color: rgba(74, 222, 128, 0.25) !important;
@@ -36,7 +37,7 @@
 }
 
 .card-header-custom {
-  padding: 32px 32px 10px 32px;
+  padding: 30px 30px 10px 32px;
   text-align: left;
 }
 
@@ -50,33 +51,41 @@
   text-transform: uppercase;
 }
 
-.kor-title {
-  font-size: 14px;
-  font-weight: 600;
-  color: #a1a1aa !important;
-}
-
-.kor-subtitle {
-  font-size: 14px;
+.kor-sub {
+  font-size: 20px;
   font-weight: 500 !important;
-  color: #a1a1aa !important;
+  color: #4ade80b3 !important;
   margin: 6px 6px;
 }
+
+.card-content-title {
+  font-size: 20px;
+  font-weight: 500 !important;
+  color: #e2e2e2 !important;
+}
+
+.card-content {
+  font-size: 20px;
+  font-weight: 500 !important;
+  color: #b6b6b6 !important;
+}
+
 .balance-content {
-  height: 420px !important;
-  padding: 10px 20px 60px 20px !important;
+  height: 530px !important;
+  padding: 10px 20px 50px 20px !important;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   position: relative;
   background: transparent !important;
+  overflow: visible !important;
 }
 
 .balance-info-text {
   position: absolute;
-  bottom: 24px;
-  font-size: 16px;
+  bottom: 30px;
+  font-size: 20px;
   color: #a1a1aa !important;
   font-weight: 600;
   font-family: "Space Grotesk", sans-serif;
@@ -91,14 +100,22 @@
 }
 
 .balance-info-sc {
-  font-size: 22px;
+  font-size: 25px;
   font-weight: 900;
   color: #4ade80 !important;
   text-shadow: 0 0 10px rgba(74, 222, 128, 0.3);
 }
 
 .recharts-radar-polygon {
-  fill: rgba(74, 222, 128, 0.2) !important;
+  fill: rgba(74, 222, 128, 0.25) !important;
   stroke: #4ade80 !important;
   stroke-width: 2px;
+  filter: drop-shadow(0 0 5px rgba(74, 222, 128, 0.4));
+}
+
+.logic-tooltip-bubble {
+  transition:
+    opacity 0.2s ease,
+    transform 0.2s ease;
+  backdrop-filter: blur(8px);
 }

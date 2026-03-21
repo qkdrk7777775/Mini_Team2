@@ -55,8 +55,16 @@ const RiskSignalCard = ({ signals, rawScores }) => {
 
   const topRisks = riskAnalysis
     .filter((r) => r.active)
-    .sort((a, b) => b.badness - a.badness)
-    .slice(0, 2);
+    .sort((a, b) => {
+      // 1순위: 등급(Level) 비교 (CRITICAL이 WARNING보다 우선)
+      const levelWeight = { CRITICAL: 2, WARNING: 1 };
+      if (levelWeight[b.level] !== levelWeight[a.level]) {
+        return levelWeight[b.level] - levelWeight[a.level];
+      }
+      // 2순위: 등급이 같으면 badness(점수)가 높은 순서
+      return b.badness - a.badness;
+    })
+    .slice(0, 1);
 
   const isStable = topRisks.length === 0;
 
