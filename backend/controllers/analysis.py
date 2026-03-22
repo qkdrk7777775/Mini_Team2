@@ -2,16 +2,18 @@ from fastapi.responses import JSONResponse
 from fastapi import status
 from services.analysis import analyze_institution
 
-def analysis_controller(request):
+from schemas.analysis import AnalysisRequest
+def analysis_controller(req: AnalysisRequest):
     try:
+        print(req)
         result = analyze_institution(
-            request.institution,
-            request.age,
-            request.gender,
-            request.tenure_years,
-            request.performance_grade,
-            request.workload_level,
-            request.flexible_work
+            req.institution,
+            req.age,
+            req.gender,
+            req.tenure_years,
+            req.performance_grade,
+            req.workload_level,
+            req.flexible_work
         )
 
         return JSONResponse(

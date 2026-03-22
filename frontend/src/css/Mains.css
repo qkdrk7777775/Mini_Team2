@@ -111,14 +111,18 @@
   padding: 0;
   width: 100%;
   align-items: start;
+  /* align-items: stretch; */
 }
 
 .grid-column {
   flex: 1;
   display: flex;
   flex-direction: column;
-  height: 100%;
   gap: 30px;
+  justify-content: space-between;
+}
+.grid-column:last-child {
+  flex: 1;
 }
 
 /* 개별 카드 컴포넌트에 공통 적용될 스타일 (Mains.js 내부에서 호출되는 각 Card 컴포넌트의 루트 클래스 대응) */

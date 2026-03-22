@@ -2,13 +2,14 @@ from fastapi.responses import JSONResponse
 from fastapi import status
 from services.auth import create_user, login_user
 #from utils.security import create_access_token
+from schemas.auth import SignupRequest, LoginRequest
 
-def signup_controller(request):
+def signup_controller(req: SignupRequest):
     try:
-        create_user(request.email, request.password, request.institution)
+        create_user(req.email, req.password, req.institution)
         return JSONResponse(
             status_code=status.HTTP_201_CREATED,
-            content={"message": "회원가입 성공","institution": request.institution},
+            content={"message": "회원가입 성공","institution": req.institution},
             
         )
     except Exception as e:
@@ -17,9 +18,9 @@ def signup_controller(request):
             content={"message": f"회원가입 실패: {str(e)}"}
         )
 
-def login_controller(request):
+def login_controller(req: LoginRequest):
     try:
-        user = login_user(request.email, request.password)
+        user = login_user(req.email, req.password)
 
         if not user:
             return JSONResponse(

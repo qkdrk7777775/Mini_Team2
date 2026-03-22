@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "../css/Login.css";
+import { LoginApi } from "../api/UserApi";
 
 export default function Login() {
   const navigate = useNavigate();
@@ -29,15 +30,10 @@ export default function Login() {
 
   const handleLogin = async () => {
     try {
-      const response = await fetch("http://192.168.0.41:8000/login", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, password }),
-      });
+      const response = await LoginApi(email, password);
+      const data = response.data;
 
-      const data = await response.json();
-
-      if (response.ok) {
+      if (response.status === 200) {
         console.log("로그인 응답 데이터:", data);
         if (data.institution) {
           localStorage.setItem("institution", data.institution);

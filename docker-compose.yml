@@ -1,0 +1,67 @@
+services:
+  team_2_db:
+    image: mariadb:latest
+    container_name: team_2_db
+    volumes:
+      - ./database/MariaDB:/var/lib/mysql
+      - ./database/init.sql:/docker-entrypoint-initdb.d/init.sql
+    ports:
+      - "${DB_PORT}:3306"
+    env_file:
+      - ".env"
+    healthcheck:
+      test: ["CMD", "healthcheck.sh", "--connect", "--innodb_initialized"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - team2_net
+
+  team_2_backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: team_2_backend
+    env_file:
+      - ./.env
+    environment:
+      DATABASE_URL: mysql+pymysql://${DB_USER}:${DB_PASSWORD}@team_2_db:${DB_PORT}/${DB_NAME}
+    volumes:
+      - ./backend:/app
+    ports:
+      - "8000:8000"
+    depends_on:
+      team_2_db:
+        condition: service_healthy
+    command: uvicorn main:app --host 0.0.0.0 --port 8000 --reload
+    networks:
+      - team2_net
+
+  team_2_frontend:
+    image: node:20-alpine
+    container_name: team_2_frontend
+    working_dir: /app
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+      - ./nginx/build:/app/build
+    command: sh -c "npm install  && npm run build"
+
+  team_2_nginx:
+    image: nginx:alpine
+    container_name: team_2_nginx
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx/build:/app/build
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+    depends_on:
+      - team_2_db
+      - team_2_backend
+    networks:
+      - team2_net
+    command: ["nginx", "-g", "daemon off;"]
+
+networks:
+  team2_net:
+    driver: bridge

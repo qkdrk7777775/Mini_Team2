@@ -33,7 +33,7 @@ const HealthDiagnosisCard = ({ data }) => {
 
       <div className="health-status-area">
         <p className="health-status-label">
-          조직 건강도 수준 :{" "}
+          조직 건강도 수준 :
           <span className="health-status-value">{statusLevel}</span>
         </p>
       </div>

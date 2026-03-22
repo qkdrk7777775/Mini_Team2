@@ -27,14 +27,13 @@ from __future__ import annotations
 
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Union
+import sklearn
 import re
 import joblib
 import pandas as pd
 from google import genai
 import os
-from dotenv import load_dotenv
 
-load_dotenv()
 DEFAULT_RISK_THRESHOLD = 0.42
 
 

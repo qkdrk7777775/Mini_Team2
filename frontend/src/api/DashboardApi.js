@@ -1,14 +1,4 @@
-import axios from "axios";
-
-// 백엔드 서버주소 확인 후 해당 서버주소:포트번호 입력
-const API_BASE_URL = "http://192.168.0.41:8000";
-
-const api = axios.create({
-  baseURL: API_BASE_URL,
-  headers: {
-    "Content-Type": "application/json",
-  },
-});
+import { api } from "./axios";
 
 export const fetchDashboardData = async (institutionName) => {
   try {

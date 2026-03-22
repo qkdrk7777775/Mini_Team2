@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 import { fetchDashboardData } from "../api/DashboardApi"; // DB 연결시 사용
 
-import Header from "./Header";
+import Header from "../components/Header.js";
 import "../css/Mains.css";
 import "../css/Header.css";
 
@@ -162,13 +162,11 @@ function Mains() {
                   {/* 중앙 컬럼 */}
                   <div className="grid-column">
                     <AttritionRiskCard data={attritionRisk} />
-
                     <WorkFlexibilityCard
                       totalData={flexDataTotal}
                       instData={flexDataInst}
                       colors={FLEX_COLORS}
                     />
-
                     <HealthDiagnosisCard data={healthData} />
                   </div>
 
@@ -198,9 +196,6 @@ function Mains() {
                     />
 
                     {/* 이미지나 기타 컨텐츠 예정 */}
-                    <div className="free-content-area">
-                      {/* 기타 컨텐츠 들어갈 소스영역 */}
-                    </div>
                   </div>
                 </section>
               </>

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../css/Login.css"; // 같은 CSS 사용
+import { SignupApi } from "../api/UserApi"; // 회원가입 API 함수
 
 export default function Signup() {
   const navigate = useNavigate();
@@ -51,15 +52,10 @@ export default function Signup() {
 
   const handleSignup = async () => {
     try {
-      const response = await fetch("http://192.168.0.41:8000/signup", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, password, institution }),
-
-        //institution
-      });
-      const data = await response.json();
-      if (response.ok) {
+      console.log("회원가입 시도:", { email, password, institution });
+      const response = await SignupApi(email, password, institution);
+      const data = response.data;
+      if (response.status === 201) {
         alert("회원가입이 완료되었습니다!");
         navigate("/"); //이 뒤로 Home으로 이동인데 안 되네요.
       } else {
