@@ -4,6 +4,16 @@
 ⚙️ Installation & Dependencies
 프로젝트 실행을 위해 아래의 라이브러리 설치가 필요합니다.
 
+🎨 Figma
+
+<img width="2873" height="1518" alt="image" src="https://github.com/user-attachments/assets/cbf60903-f3c5-415d-a5e0-2bd0a02d5acc" />
+
+본 프로젝트는 단순한 UI 제작을 넘어, 사용자 입력부터 결과 확인까지의 흐름을 고려하여 화면을 설계했습니다.  
+특히 HR 데이터 특성상 정보가 복잡하게 전달될 수 있어, 이를 직관적으로 이해할 수 있도록 카드형 UI와 단계별 구조로 구성했습니다.
+
+또한 실제 프론트엔드 구현을 고려하여 컴포넌트 단위로 화면을 설계하고, React 기반 구조와 자연스럽게 연결될 수 있도록 기획했습니다.
+
+
 ```Bash
 # 기본 라우팅
 npm install react-router-dom
