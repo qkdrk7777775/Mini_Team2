@@ -1,7 +1,10 @@
 📊 Public HR Analytics Platform (Front-end)
+
 공공기관 HR 데이터를 기반으로 한 이탈 예측 및 조직 건강도 분석 플랫폼의 프론트엔드 저장소입니다. 본 프로젝트는 스타일 가이드를 준수하여 작성하였습니다.
 
+
 ⚙️ Installation & Dependencies
+
 프로젝트 실행을 위해 아래의 라이브러리 설치가 필요합니다.
 
 
