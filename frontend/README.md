@@ -1,9 +1,9 @@
-📊 Public HR Analytics Platform (Front-end)
+## 📊 Public HR Analytics Platform (Front-end)
 
 공공기관 HR 데이터를 기반으로 한 이탈 예측 및 조직 건강도 분석 플랫폼의 프론트엔드 저장소입니다. 본 프로젝트는 스타일 가이드를 준수하여 작성하였습니다.
 
 
-⚙️ Installation & Dependencies
+## ⚙️ Installation & Dependencies
 
 프로젝트 실행을 위해 아래의 라이브러리 설치가 필요합니다.
 
@@ -11,7 +11,7 @@
 
 
 
-🎨 Figma
+## 🎨 Figma
 
 
 본 프로젝트는 단순한 UI 제작을 넘어, 사용자 입력부터 결과 확인까지의 흐름을 고려하여 화면을 설계했습니다.  
@@ -43,7 +43,7 @@ npm install react-router-dom
 npm install echarts-for-react recharts react-gauge-chart
 ```
 
-🎨 Coding Style Guide
+## 🎨 Coding Style Guide
 
 1. 명명 규칙 (Naming Conventions)
    어떤 환경에서도 가독성을 보장하기 위해 아래 규칙을 적용합니다.
@@ -86,7 +86,7 @@ if (is_valid) {
      - 보호가 필요한 변수: \_로 시작 (예: \_data)
      - Private 변수: **로 시작 (예: **secret)
 
-📂 Project Structure
+## 📂 Project Structure
 
 ```Plaintext
 src/
