@@ -1,12 +1,13 @@
-📊 Public HR Analytics Platform (Front-end)
+<img width="2876" height="1551" alt="image" src="https://github.com/user-attachments/assets/c3f6b9f9-43ff-4eec-9568-ff78adde2865" />📊 Public HR Analytics Platform (Front-end)
 공공기관 HR 데이터를 기반으로 한 이탈 예측 및 조직 건강도 분석 플랫폼의 프론트엔드 저장소입니다. 본 프로젝트는 스타일 가이드를 준수하여 작성하였습니다.
 
 ⚙️ Installation & Dependencies
 프로젝트 실행을 위해 아래의 라이브러리 설치가 필요합니다.
 
+
+
 🎨 Figma
 
-<img width="2873" height="1518" alt="image" src="https://github.com/user-attachments/assets/cbf60903-f3c5-415d-a5e0-2bd0a02d5acc" />
 
 본 프로젝트는 단순한 UI 제작을 넘어, 사용자 입력부터 결과 확인까지의 흐름을 고려하여 화면을 설계했습니다.  
 특히 HR 데이터 특성상 정보가 복잡하게 전달될 수 있어, 이를 직관적으로 이해할 수 있도록 카드형 UI와 단계별 구조로 구성했습니다.
@@ -14,11 +15,26 @@
 또한 실제 프론트엔드 구현을 고려하여 컴포넌트 단위로 화면을 설계하고, React 기반 구조와 자연스럽게 연결될 수 있도록 기획했습니다.
 
 
-```Bash
+<img width="2873" height="1528" alt="image" src="https://github.com/user-attachments/assets/3da3477c-dbbd-41ed-bbfb-7a5b9cb68721" />
+
+
+<img width="2876" height="1551" alt="image" src="https://github.com/user-attachments/assets/54aa3580-fbdf-473b-8556-b6c63db7c460" />
+
+
+<img width="2878" height="1536" alt="image" src="https://github.com/user-attachments/assets/247976e2-8ee6-420b-b09c-607c3ae0d681" />
+
+
+
+
+
+
+## 🛠 Tech Setup
+
+```bash
 # 기본 라우팅
 npm install react-router-dom
 
-# 데이터 시각화 (차트 모음)
+# 데이터 시각화 (차트)
 npm install echarts-for-react recharts react-gauge-chart
 ```
 
