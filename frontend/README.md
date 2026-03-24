@@ -10,7 +10,6 @@
 
 
 
-
 ## 🎨 Figma
 
 
@@ -41,6 +40,13 @@ npm install react-router-dom
 
 # 데이터 시각화 (차트)
 npm install echarts-for-react recharts react-gauge-chart
+
+Frontend Framework: React  
+Programming Languages: JavaScript, Java, Python  
+Styling: CSS (일부 라이브러리 없이 직접 구현)  
+Design Tools: Figma, Adobe Illustrator, Clip Studio Paint  
+Version Control: Git, GitHub  
+API Integration: fetch와 axios를 상황에 따라 활용한 REST API 통신, FastAPI 기반 백엔드 연동
 ```
 
 ## 🎨 Coding Style Guide
